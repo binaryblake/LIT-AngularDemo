@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Angular Directions Finder</h1>
+
+  <form>
+    <label for="pointA">Origin: </label>
+    <input id="pointA" type="text" ng-model="directions.args.origin" />
+
+    <label for="pointB">Destination: </label>
+    <input id="pointB" type="text" ng-model="directions.args.destination" />
+
+    <button ng-click="directions.getDirections()">Route</button>
+  </form>
+
+  <div ng-show="directions.result != null">
+    <br />
+    <div class="alert alert-success">
+      <strong>Total distance:</strong> {{directions.result[0].legs[0].distance.text}}<br />
+      <strong>Total duration:</strong> {{directions.result[0].legs[0].duration.text}}
+    </div>
+
+    <table class="table table-striped">
+      <tr>
+        <th>Step</th>
+        <th>Direction</th>
+        <th>Distance</th>
+        <th>Duration</th>
+      </tr>
+      <tr ng-repeat="step in directions.result[0].legs[0].steps">
+        <td>{{$index+1}}</td>
+        <td><span ng-bind-html="step.instructions"></span></td>
+        <td>{{step.distance.text}}</td>
+        <td>{{step.duration.text}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
